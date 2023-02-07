@@ -14,7 +14,17 @@ pizza
   		//const pizzasData = await fileReaderAsync(pizzaPath);
 		//res.send(pizzasData.toString())
 
-		res.send("List of pizzas goes here");
+
+		res.render("pizza")
+
+		// let html = "<p>My new paragraph.</p>";
+		// document.getElementById("root").insertAdjacentHTML("afterend", html);
+
+		//res.send("EDIT")
+
+
+
+		//res.send("List of pizzas goes here");
 	})
 
 module.exports = pizza
