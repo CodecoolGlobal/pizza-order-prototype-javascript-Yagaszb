@@ -1,28 +1,33 @@
-const http = require('http');
+const express = require("express");
+const path = require("path");
 const fs = require('fs');
+const cors = require("cors");
 
-const ip = "127.0.0.1";
-const port = 9000;
-const server = http.createServer((request, response) => {
-	const pizzaArray = JSON.parse(fs.readFileSync("pizza.json", "utf8"));
-	const allergenArray = JSON.parse(fs.readFileSync("allergen.json", "utf8"));
-	
-	if(request.url == "/" && request.method == "GET"){
-		response.write(`<h1>Pizza Time</h1>`);
-	}
+const app = express();
+const pizzaArray = JSON.parse(fs.readFileSync("pizza.json", "utf8"));
+const allergenArray = JSON.parse(fs.readFileSync("allergen.json", "utf8"));
 
-	if(request.url == "/api/pizza" && request.method == "GET"){
-		pizzaArray.pizzas.map(element => response.write(`<div>${JSON.stringify(element)}</div>`));
-	}
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'));
+app.use('/js', express.static(__dirname + 'public/js'));
 
-	if(request.url == "/api/allergens" && request.method == "GET"){
-		allergenArray.allergens.map(element => response.write(`<div>${JSON.stringify(element)}</div>`));
-	}
+app.set('views', path.join(`${__dirname}/views`));
+app.set("view engine", "ejs");
 
-	response.end();
-});
 
-server.listen(port, ip, () => {
-	const addr = server.address();
-	console.log(`http://${addr.address}:${addr.port}`);
-});
+app.get("/", (req, res) => {
+	res.render("index")
+})
+
+const apiRouter = require('./routes/api')
+const pizzaRouter = require('./routes/pizza')
+
+app.use('/api', apiRouter);
+app.use('/pizza', pizzaRouter);
+
+
+
+
+app.listen(3000)
