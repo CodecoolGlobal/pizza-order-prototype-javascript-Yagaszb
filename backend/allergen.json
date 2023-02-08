@@ -1,0 +1,40 @@
+{
+	"allergens": [
+		{
+			"id": 1,
+  			"name": "gluten"
+		},
+		{
+			"id": 2,
+  			"name": "celery"
+		},
+		{
+			"id": 3,
+  			"name": "diary"
+		},
+		{
+			"id": 4,
+  			"name": "nuts"
+		},
+		{
+			"id": 5,
+  			"name": "eggs"
+		},
+		{
+			"id": 6,
+  			"name": "artichoke"
+		},
+		{
+			"id": 7,
+  			"name": "fish"
+		},
+		{
+			"id": 8,
+  			"name": "allium"
+		},
+		{
+			"id": 9,
+  			"name": "sesame"
+		}
+	]
+}
