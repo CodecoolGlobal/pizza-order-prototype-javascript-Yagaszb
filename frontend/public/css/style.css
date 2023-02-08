@@ -1,0 +1,16 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	background-color: #0d0409;
+	color: #ffffff;
+}
+
+.pizza{
+	background-color: #1a0911;
+	margin-bottom: 24px;
+}
+
+.pizza:hover{
+	background-color: #91375c;
+	margin-bottom: 24px;
+}
