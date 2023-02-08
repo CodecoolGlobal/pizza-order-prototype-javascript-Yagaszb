@@ -1,16 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Babylonica&family=Overpass:wght@400;700&family=Oxygen:wght@400;700&display=swap');
+
+/* font-family: 'Overpass', sans-serif;
+font-family: 'Oxygen', sans-serif; 
+font-family: 'Babylonica', cursive;
+*/
+
 html, body{
 	margin: 0;
 	padding: 0;
-	background-color: #0d0409;
+	background-color: #000000;
 	color: #ffffff;
+	font-family: 'Overpass', sans-serif;
 }
 
+h1{
+	font-family: 'Babylonica', cursive;
+	font-weight: 700;
+	margin: 30px 0;
+	font-size: 200px;
+	color: #d46a97;
+}
+
+h3{
+	font-family: 'Oxygen', sans-serif; 
+}
+
+select{
+	padding: 5px;
+	border-radius: 5px;
+	text-transform: capitalize;
+	margin-bottom: 30px;
+	border: 1px solid #762146;
+}
+
+.hero{
+	background: transparent url('../img/pizza_bg.jpg') no-repeat right center;
+	height: 700px;
+	margin-bottom: 60px;
+	background-size: cover;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter_text{
+	font-size: 18px;
+	padding-right: 5px;
+}
+
+
 .pizza{
-	background-color: #1a0911;
+	background-color: #16060D;
 	margin-bottom: 24px;
+	border-radius: 10px;
+	margin-top: 100px;
+	padding-bottom: 10px;
 }
 
 .pizza:hover{
-	background-color: #91375c;
+	background-color: #762146;
 	margin-bottom: 24px;
+}
+
+.pizza:hover hr{
+	margin-top: 5px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid #16060D;
+}
+
+.pizza .name{
+	margin-top: 30px;
+	text-align: center;
+	font-size: 20px;
+}
+
+.pizza hr{
+	margin-top: 5px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid #D46A97;
+}
+
+.pizza .ingredients{
+	padding: 0 30px 30px;
+	min-height: 105px;
+}
+
+.pizza .price{
+	display: inline-block;
+    width: 50%;
+    text-align: left;
+    padding-left: 30px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.pizza .quantity{
+	display: inline-block;
+    width: 50%;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.pizza .circle_sign{
+	border: 1px solid #ffffff;
+    padding: 3px 7px 1px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.pizza .circle_sign.plus_sign {
+	margin-right: 3px;
+}
+
+.pizza .circle_sign.minus_sign {
+	padding: 3px 9px 1px;
+	margin-left: 3px;
+}
+
+.pizza .order_pizza{
+	background-color: #d46a97;
+	margin: 30px;
+	padding: 15px;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 20px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+.pizza .order_pizza:hover{
+	box-shadow: 10px 10px 28px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 10px 10px 28px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 28px 0px rgba(0,0,0,0.75);
+}
+
+.pic{
+	display: flex;
+	justify-content: center;
+}
+
+.pic img{
+	margin-top: -100px;
+}
+
+.greybg{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,.8) ;
+	z-index: 1;
+}
+
+.basket{
+	position: fixed;
+    background-color: #ffffff;
+    width: 50%;
+    min-width: 300px;
+    height: 500px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    border-radius: 10px;
+    background-color: #762146;
+    padding: 15px;
+    z-index: 2;
+}
+
+.close_basket{
+	position: absolute;
+	top: 13px;
+	right: 13px;
 }
