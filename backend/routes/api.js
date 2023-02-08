@@ -33,7 +33,7 @@ api.use('/public', express.static(`${__dirname}/../frontend/public`));
 	})
 	.post((req, res) => {
 
-		// fs.writeFile("pizza.json", JSON.stringify(order), err => {
+		// fs.writeFile("order.json", JSON.stringify(order), err => {
       	// 	if (err) {
         // 		console.error(err);
       	// 	}
