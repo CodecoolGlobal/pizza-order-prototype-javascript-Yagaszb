@@ -20,7 +20,7 @@ api.use('/public', express.static(`${__dirname}/../frontend/public`));
   		const allergenArray = JSON.parse(fs.readFileSync("allergen.json", "utf8"));
 		res.json(allergenArray.allergens);
 
-  		res.sendFile(path.join(`${__dirname}/../../frontend/index.html`));
+  		//res.sendFile(path.join(`${__dirname}/../../frontend/index.html`));
 	})
 
 	api
@@ -29,16 +29,15 @@ api.use('/public', express.static(`${__dirname}/../frontend/public`));
   		const orderArray = JSON.parse(fs.readFileSync("order.json", "utf8"));
 		res.json(orderArray.orders);
 
-  		res.sendFile(path.join(`${__dirname}/../../frontend/index.html`));
+  		//res.sendFile(path.join(`${__dirname}/../../frontend/index.html`));
 	})
 	.post((req, res) => {
-
-		// fs.writeFile("order.json", JSON.stringify(order), err => {
-      	// 	if (err) {
-        // 		console.error(err);
-      	// 	}
-
-
+		try {
+			fs.writeFileSync('order.json', JSON.stringify(req.body));
+			// file written successfully
+		  } catch (err) {
+			console.error(err);
+		  }
 	})
 
 

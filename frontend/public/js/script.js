@@ -1,7 +1,7 @@
-let root = document.querySelector("#root"), allergens_filter = document.querySelector("#allergens_filter"), allergenClass = "", ingredientClass="", pizzasArray = [], basketArray = [];
+let root =document.querySelector("#root"), orderbasketarray=[], allergens_filter = document.querySelector("#allergens_filter"), allergenClass = "", ingredientClass="", pizzasArray = [], basketArray = [];
 
 let buildHTML = function(){
-	root.insertAdjacentHTML("afterbegin", '<div class="container-flex"><div class="row m-0 p-0"><div class="col-12 text-center p-0 hero"><h1>Pizza Time</h1></div></div></div><div class="container"><div class="row m-0 p-0"><div class="col-12"><span class="filter_text">Filter by Allergens: </span><select name="filter" id="allergens_filter"><option></option></select></div></div><div class="row p-0 m-0" id="pizza_container"></div></div><div class="greybg d-none" id="greybg"></div><div class="basket d-none" id="basket"><h3>Basket</h3><span class="close_basket" onclick="closeBasket()">X</span><div class="basket_content" id="basket_content"><div><div class="ordered_pizza"><h4>Your pizzas</h4><div id="ordered_pizza"></div></div><div class="user_form" id="user_form"><h4>Your details</h4><input name="name" type="text" placeholder="Name"><input name="email" type="email" placeholder="Email"><input name="city" type="text" placeholder="City"><input name="address" type="text" placeholder="Address"><div class="formatted_button submit_button">Submit</div></div></div></div>');
+	root.insertAdjacentHTML("afterbegin", '<div class="container-flex"><div class="row m-0 p-0"><div class="col-12 text-center p-0 hero"><h1>Pizza Time</h1></div></div></div><div class="container"><div class="row m-0 p-0"><div class="col-12"><span class="filter_text">Filter by Allergens: </span><select name="filter" id="allergens_filter"><option></option></select></div></div><div class="row p-0 m-0" id="pizza_container"></div></div><div class="greybg d-none" id="greybg"></div><div class="basket d-none" id="basket"><h3>Basket</h3><span class="close_basket" onclick="closeBasket()">X</span><div class="basket_content" id="basket_content"><div><div class="ordered_pizza"><h4>Your pizzas</h4><div id="ordered_pizza"></div></div><div class="user_form" id="user_form"><h4>Your details</h4><input name="name" type="text" placeholder="Name" id="inputName"><input name="email" type="email" placeholder="Email" id="inputEmail"><input name="city" type="text" placeholder="City" id="inputCity"><input name="address" type="text" placeholder="Address" id="inputAddress"><div class="formatted_button submit_button" id="submit" onclick="test()">Submit</div></div></div></div>');
 }
 
 let getPizzas = function () { return fetch("/api/pizza").then(res =>res.json()) }
@@ -67,6 +67,7 @@ let orderSinglePizza = (e) => {
 	let pizzaName = buttonID.closest("div").parentElement.parentElement.querySelector("#pizza_name").innerText
 	let quantityVal = buttonID.closest("div").parentElement.previousSibling.querySelector("#quantity-"+pizzaID).innerHTML
 	basketArray.push({"id": parseInt(pizzaID), "name":pizzaName, "amount": parseInt(quantityVal)})
+	orderbasketarray.push({"id": parseInt(pizzaID),"amount": parseInt(quantityVal)})
 	console.log(basketArray);
 	contentOfBasket(basketArray)
 }
@@ -86,7 +87,58 @@ let contentOfBasket = (basketArray) => {
 	basketArray.map(pizza => document.querySelector('#ordered_pizza').insertAdjacentHTML('beforeend',`<div><span>${pizza.name}</span><span>${pizza.amount} db</span></div>`));
 }
 
-
+// let submitOrder = async (obj) =>{
+// 	const res = await fetch("/api/order");
+// 	return await res.json();
+// }
+let obj={}
+async function submitOrder(obj) {
+	console.log("hello world: "+document.getElementById("inputCity").value)
+	try{
+  
+	  const response = await fetch('http://127.0.0.1:9002/api/order', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(obj)
+	  })
+  
+	  const data = await response.json();
+	  //console.log("hello world: "+document.getElementById("inputCity"))
+	  return data;
+	}
+	catch(error){
+	  const errorMessage = await error.json()
+	  return errorMessage
+	}
+  }
+let test= () =>{
+	obj=
+				{
+					"id": 1,
+					"pizzas" : 
+					orderbasketarray,
+					"date": {
+					  "year": (new Date).getFullYear,
+					 "month": (new Date).getMonth,
+					 "day": (new Date).toDateString().split(" ")[2],
+					 "hour": (new Date).getHours(),
+					 "minute": (new Date).getMinutes()
+					},
+					"customer": {
+					  "name": document.getElementById("inputEmail").value,
+					  "email": document.getElementById("inputEmail").value,
+					  "address": {
+						"city": document.getElementById("inputCity").value,
+						"street": document.getElementById("inputAddress").value
+					  }
+					}
+				  }
+				  console.log(obj)
+				  submitOrder(obj)
+				  
+			}
 const loadEvent = _ => {
 	buildHTML();
 
@@ -95,9 +147,44 @@ const loadEvent = _ => {
 
 	getPizzas()
 		.then(pizzas => showPizzas(pizzas))
-
+		let submitDataOnClick = () =>{
+			// let obj={				"name": document.getElementById("inputName").value,
+			// "email": document.getElementById("inputEmail").value,
+			// "city": document.getElementById("inputCity").value,
+			//   "street": document.getElementById("inputAddress").value}
+			  //return obj
+			  console.log("itt vagyok: "+document.getElementById("inputEmail").value)
+		}
+		let order = () => {
+			let obj=
+				{
+					"id": basketArray[0],
+					"pizzas" : 
+					[{"id": basketArray[0], "amount": basketArray[1]}],
+					"date": {
+					  "year": (new Date).getFullYear,
+					 "month": (new Date).getMonth,
+					 "day": (new Date).toDateString().split(" ")[2],
+					 "hour": (new Date).getHours(),
+					 "minute": (new Date).getMinutes()
+					},
+					"customer": {
+					  "name": document.getElementById("inputEmail").value,
+					  "email": document.getElementById("inputEmail").value,
+					  "address": {
+						"city": document.getElementById("inputCity").value,
+						"street": document.getElementById("inputAddress").value
+					  }
+					}
+				  }
+				  return obj
+			}
+			console.log("hello world: "+document.getElementById("inputCity").value)
+			
+			  submitOrder(obj)
 	document.querySelector("#allergens_filter").addEventListener('change', hidePizzas);	
-
+	document.getElementById("submit").addEventListener("click", submitDataOnClick())
+	document.getElementById("submit").addEventListener("click", submitOrder(order()))
 
 
 
